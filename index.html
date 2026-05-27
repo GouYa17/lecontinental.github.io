@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hôtel Le Continental</title>
+    <!-- Polices -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==========================================================================
+           VARIABLES CSS & THEMES
+           ========================================================================== */
+        :root[data-theme="dark"] {
+            --bg-color: #0d0d0d;
+            --bg-secondary: #161616;
+            --bg-panel: #1f1f1f;
+            --text-main: #e8e8e8;
+            --text-muted: #888888;
+            --gold-accent: #d4af37;
+            --gold-hover: #f1cd55;
+            --border-color: #333333;
+            --danger-color: #c92a2a;
+            --success-color: #2b8a3e;
+            --shadow-subtle: 0 4px 20px rgba(0,0,0,0.5);
+            --shadow-hover: 0 8px 30px rgba(212, 175, 55, 0.15);
+        }
+
+        :root[data-theme="light"] {
+            --bg-color: #f5f5f5;
+            --bg-secondary: #e8e8e8;
+            --bg-panel: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #666666;
+            --gold-accent: #9a781b;
+            --gold-hover: #b38b22;
+            --border-color: #d0d0d0;
+            --danger-color: #e03131;
+            --success-color: #2f9e44;
+            --shadow-subtle: 0 4px 20px rgba(0,0,0,0.05);
+            --shadow-hover: 0 8px 30px rgba(154, 120, 27, 0.2);
+        }
+
+        :root[data-theme="excommunicado"] {
+            --bg-color: #050000;
+            --bg-secondary: #110000;
+            --bg-panel: #1a0000;
+            --text-main: #ff6666;
+            --text-muted: #aa3333;
+            --gold-accent: #ff0000;
+            --gold-hover: #ff3333;
+            --border-color: #550000;
+            --danger-color: #ff0000;
+            --shadow-subtle: 0 4px 20px rgba(255,0,0,0.2);
+            --shadow-hover: 0 8px 30px rgba(255,0,0,0.4);
+        }
+
+        /* ==========================================================================
+           RESET & BASE
+           ========================================================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.3s; }
+        body { font-family: 'Roboto', sans-serif; background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; color: var(--gold-accent); }
+        .gold-text { color: var(--gold-accent); }
+        .hidden { display: none !important; }
+        
+        /* ==========================================================================
+           COMPOSANTS UI
+           ========================================================================== */
+        .btn {
+            background: transparent; border: 1px solid var(--gold-accent); color: var(--gold-accent);
+            padding: 0.6rem 1.5rem; cursor: pointer; font-family: 'Playfair Display', serif;
+            text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: bold;
+            border-radius: 2px;
+        }
+        .btn:hover { background: var(--gold-accent); color: var(--bg-color); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+        .btn-danger { border-color: var(--danger-color); color: var(--danger-color); }
+        .btn-danger:hover { background: var(--danger-color); color: white; box-shadow: 0 0 15px rgba(201, 42, 42, 0.4); }
+        .btn-small { padding: 0.4rem 1rem; font-size: 0.7rem; }
+        .btn-block { display: block; width: 100%; }
+
+        .card { 
+            background: var(--bg-panel); border: 1px solid var(--border-color); 
+            padding: 1.5rem; margin-bottom: 1.5rem; border-radius: 4px;
+            box-shadow: var(--shadow-subtle);
+            border-left: 4px solid var(--gold-accent);
+        }
+
+        /* ==========================================================================
+           HEADER & NAVIGATION
+           ========================================================================== */
+        header { 
+            background: var(--bg-secondary); padding: 1.2rem 5%; display: flex; 
+            justify-content: space-between; align-items: center; 
+            border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .logo { font-size: 1.8rem; letter-spacing: 3px; text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        nav ul { list-style: none; display: flex; gap: 2.5rem; align-items: center; }
+        nav a { color: var(--text-main); text-decoration: none; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1.5px; cursor: pointer; font-weight: 500; }
+        nav a:hover, nav a.active { color: var(--gold-accent); }
+        nav a.active { border-bottom: 2px solid var(--gold-accent); padding-bottom: 4px; }
+        
+        .nav-controls { display: flex; align-items: center; gap: 1rem; }
+        #secret-login-trigger { opacity: 0.05; cursor: pointer; font-size: 0.6rem; padding: 10px; }
+        #secret-login-trigger:hover { opacity: 1; color: var(--gold-accent); }
+
+        /* ==========================================================================
+           CONTENU PRINCIPAL & GRILLES DE MENUS
+           ========================================================================== */
+        main { padding: 2rem 5%; min-height: 80vh; }
+        
+        .hero { 
+            text-align: center; padding: 7rem 0; 
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1542314831-c6a420325142?auto=format&fit=crop&w=1920&q=80') center/cover; 
+            margin: -2rem -5% 3rem -5%; color: #fff;
+            border-bottom: 2px solid var(--gold-accent);
+        }
+        .hero h1 { font-size: 4rem; margin-bottom: 1rem; color: #d4af37; letter-spacing: 4px; text-shadow: 0 4px 10px rgba(0,0,0,0.8); }
+
+        .home-section { display: flex; flex-wrap: wrap; align-items: center; gap: 4rem; padding: 5rem 0; border-bottom: 1px solid var(--border-color); }
+        .home-section.reverse { flex-direction: row-reverse; }
+        .home-text { flex: 1; min-width: 300px; }
+        .home-text h2 { font-size: 2.5rem; margin-bottom: 1.5rem; letter-spacing: 1px; }
+        .home-text p { color: var(--text-muted); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem; }
+        .home-image { flex: 1; min-width: 300px; min-height: 450px; background-size: cover; background-position: center; border-radius: 4px; box-shadow: var(--shadow-subtle); border: 1px solid var(--border-color); position: relative; }
+        .home-image::after { content: ''; position: absolute; inset: 0; border: 1px solid var(--gold-accent); opacity: 0.3; margin: 10px; pointer-events: none; }
+
+        /* Grilles Publiques (Restauration / Bar) */
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem; }
+        .menu-card { 
+            background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 6px; 
+            overflow: hidden; display: flex; flex-direction: column; 
+            box-shadow: var(--shadow-subtle);
+        }
+        .menu-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--gold-accent); }
+        .menu-img { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
+        .menu-content { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .menu-content h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .menu-content p { color: var(--text-muted); font-size: 0.9rem; flex-grow: 1; margin-bottom: 1.5rem; }
+        .menu-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid var(--border-color); padding-top: 1rem;}
+        .menu-price { font-size: 1.2rem; font-weight: bold; color: var(--gold-accent); font-family: 'Playfair Display', serif; }
+
+        /* Footer */
+        .site-footer { margin-top: 4rem; padding-top: 4rem; border-top: 1px solid var(--border-color); text-align: center; background: var(--bg-secondary); margin-left: -5%; margin-right: -5%; padding-left: 5%; padding-right: 5%; padding-bottom: 2rem;}
+        .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold-accent); margin-bottom: 1.5rem; letter-spacing: 2px; }
+        .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; margin-bottom: 2.5rem; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; cursor: pointer; }
+        .footer-links a:hover { color: var(--gold-accent); }
+        .footer-bottom { font-size: 0.8rem; color: #444; border-top: 1px solid var(--border-color); padding-top: 1.5rem; }
+
+        /* ==========================================================================
+           FACE B : VIP & SOMMELIER & CONCIERGERIE
+           ========================================================================== */
+        .vip-dashboard { display: grid; grid-template-columns: 280px 1fr; gap: 3rem; }
+        .vip-sidebar { background: var(--bg-secondary); padding: 2rem; border-right: 1px solid var(--border-color); border-radius: 4px; height: fit-content; position: sticky; top: 100px; box-shadow: var(--shadow-subtle); }
+        .user-badge { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); text-align: center; }
+        .user-badge h3 { font-size: 1.5rem; margin-bottom: 0.2rem; }
+        .gold-coins { font-size: 1.8rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; color: var(--gold-accent); margin-top: 1rem; }
+        
+        .vip-menu { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+        .vip-menu li { cursor: pointer; padding: 1rem; border-left: 3px solid transparent; font-weight: 500; font-family: 'Playfair Display', serif; font-size: 1.1rem; transition: all 0.2s; }
+        .vip-menu li:hover, .vip-menu li.active { border-color: var(--gold-accent); color: var(--gold-accent); background: rgba(212, 175, 55, 0.08); }
+
+        /* Grilles Sommelier VIP */
+        .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+        .shop-item { background: var(--bg-panel); border: 1px solid var(--border-color); padding: 1.5rem; text-align: center; border-radius: 4px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow-subtle); }
+        .shop-item:hover { border-color: var(--gold-accent); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+        .shop-item i { font-size: 3rem; color: var(--gold-accent); margin-bottom: 1.5rem; }
+        .shop-item h4 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .shop-item p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem; flex-grow: 1;}
+        .item-price { font-weight: bold; color: var(--gold-accent); margin-bottom: 1rem; font-size: 1.2rem; }
+
+        /* Panier */
+        .cart-container { background: var(--bg-secondary); border: 2px dashed var(--gold-accent); padding: 2rem; margin-top: 2rem; border-radius: 4px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding: 0.8rem 0; }
+        .cart-total { display: flex; justify-content: space-between; font-size: 1.4rem; font-weight: bold; margin-top: 1.5rem; color: var(--gold-accent); padding-top: 1.5rem; border-top: 2px solid var(--border-color); }
+
+        /* Conciergerie Services */
+        .service-list { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1.5rem; }
+        .service-row { background: var(--bg-panel); padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color); border-radius: 4px; }
+        .service-row:hover { border-color: var(--gold-accent); }
+        .service-info h4 { margin-bottom: 0.3rem; }
+        .service-info p { color: var(--text-muted); font-size: 0.85rem; }
+
+        /* Modales */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+        .modal { background: var(--bg-panel); padding: 3rem; border: 1px solid var(--gold-accent); width: 100%; max-width: 450px; text-align: center; box-shadow: 0 0 40px rgba(0,0,0,0.9); border-radius: 4px; }
+        .modal h2 { margin-bottom: 1rem; }
+        .modal input { width: 100%; padding: 1rem; margin: 1rem 0; background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); text-align: center; font-size: 1rem; }
+        .modal input:focus { outline: none; border-color: var(--gold-accent); }
+
+        /* Toasts (Notifications) */
+        #toast-container { position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 15px; }
+        .toast { background: var(--bg-panel); border-left: 4px solid var(--gold-accent); padding: 1.2rem 2rem; color: var(--text-main); box-shadow: 0 10px 30px rgba(0,0,0,0.8); border-radius: 4px; animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; display: flex; align-items: center; gap: 1rem; }
+        .toast i { color: var(--gold-accent); font-size: 1.5rem; }
+        .toast.fade-out { animation: fadeOut 0.5s ease forwards; }
+        @keyframes slideIn { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes fadeOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(120%); opacity: 0; } }
+
+        /* Effet Excommunié */
+        body.excommunicado-active { animation: shake 0.5s infinite; }
+        @keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 10% { transform: translate(-1px, -2px) rotate(-1deg); } 20% { transform: translate(-3px, 0px) rotate(1deg); } 30% { transform: translate(3px, 2px) rotate(0deg); } 40% { transform: translate(1px, -1px) rotate(1deg); } 50% { transform: translate(-1px, 2px) rotate(-1deg); } 60% { transform: translate(-3px, 1px) rotate(0deg); } 70% { transform: translate(3px, 1px) rotate(-1deg); } 80% { transform: translate(-1px, -1px) rotate(1deg); } 90% { transform: translate(1px, 2px) rotate(0deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a class="logo gold-text" onclick="App.renderFaceA('home')">
+            <i class="fa-solid fa-hotel"></i> Le Continental
+        </a>
+        <nav>
+            <!-- Menu Public -->
+            <ul id="nav-public">
+                <li><a id="link-pub-home" class="active" onclick="App.renderFaceA('home')">Accueil</a></li>
+                <li><a id="link-pub-rooms" onclick="App.renderFaceA('rooms')">Chambres</a></li>
+                <li><a id="link-pub-resto" onclick="App.renderFaceA('resto')">Restauration</a></li>
+                <li><a id="link-pub-bar" onclick="App.renderFaceA('bar')">Bar Lounge</a></li>
+                <li><a id="link-pub-client" class="hidden gold-text" onclick="App.renderClientDashboard()"><i class="fa-solid fa-key"></i> Mon Séjour</a></li>
+                <li><a id="link-pub-logout" class="hidden" onclick="App.logout()" style="color: var(--danger-color); cursor: pointer;"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</a></li>
+            </ul>
+            <!-- Menu VIP -->
+            <ul id="nav-vip" class="hidden">
+                <li><a id="link-vip-dashboard" onclick="App.showVIPSection('dashboard')">Conciergerie</a></li>
+                <li><a id="link-vip-armory" onclick="App.showVIPSection('armory')">Sommelier</a></li>
+                <li><a id="link-vip-contracts" onclick="App.showVIPSection('contracts')">Contrats</a></li>
+                <li><button class="btn btn-danger btn-small" onclick="App.triggerExcommunicado()">Règles</button></li>
+                <li><button class="btn btn-small" onclick="App.logout()">Déconnexion</button></li>
+            </ul>
+        </nav>
+        <div class="nav-controls">
+            <button class="btn btn-small" id="theme-toggle" onclick="App.toggleTheme()" title="Basculer Jour/Nuit">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+            <i class="fa-solid fa-circle" id="secret-login-trigger" onclick="App.showLogin()"></i>
+        </div>
+    </header>
+
+    <!-- CONTENU PRINCIPAL -->
+    <main id="main-content">
+        <!-- Rempli dynamiquement par le JS -->
+    </main>
+
+    <!-- TOAST NOTIFICATIONS -->
+    <div id="toast-container"></div>
+
+    <!-- MODALE CONNEXION -->
+    <div id="login-modal" class="modal-overlay hidden">
+        <div class="modal">
+            <h2>Accès Réservé</h2>
+            <p class="text-muted" style="margin-top:0.5rem; font-size:0.9rem;">Veuillez décliner votre identité.</p>
+            <input type="password" id="auth-token" placeholder="Matricule ou Identifiant..." autocomplete="off">
+            <div style="display:flex; gap:1rem; justify-content:center; margin-top:1.5rem;">
+                <button class="btn" onclick="App.hideModals()">Annuler</button>
+                <button class="btn" onclick="App.login()">Entrer</button>
+            </div>
+            <div style="margin-top: 1.5rem; font-size: 0.75rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 1rem;">
+                Indices de test :<br>'winston' (Direction) | 'charon' (Concierge) | 'wick' (Assassin)<br>
+                <strong>Clients :</strong> Connectez-vous avec l'identifiant créé lors de la réservation (ex: 'viggiano').
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE RÉSERVATION CHAMBRE -->
+    <div id="book-room-modal" class="modal-overlay hidden">
+        <div class="modal">
+            <h2>Réserver une suite</h2>
+            <p class="text-muted" style="margin-bottom: 1rem;">Veuillez indiquer vos informations pour le registre.</p>
+            <input type="hidden" id="book-room-id">
+            <input type="text" id="book-room-guest" placeholder="Nom complet..." autocomplete="off">
+            <input type="email" id="book-room-email" placeholder="Adresse e-mail..." autocomplete="off">
+            <div style="display:flex; gap:1rem;">
+                <input type="date" id="book-room-checkin" style="flex:1" title="Date d'arrivée" style="background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.8rem; outline: none;">
+                <input type="date" id="book-room-checkout" style="flex:1" title="Date de départ" style="background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.8rem; outline: none;">
+            </div>
+            <input type="text" id="book-room-identifiant" placeholder="Créez un identifiant de connexion (mot de passe)..." autocomplete="off" style="margin-top:1rem;">
+            <div style="display:flex; gap:1rem; justify-content:center; margin-top:1.5rem;">
+                <button class="btn" onclick="App.hideModals()">Annuler</button>
+                <button class="btn" onclick="App.confirmBooking()">Confirmer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE ÉDITION CHAMBRE (CONCIERGE) -->
+    <div id="edit-room-modal" class="modal-overlay hidden">
+        <div class="modal">
+            <h2>Gérer la réservation</h2>
+            <p class="text-muted" style="margin-bottom: 1rem;">Mise à jour des informations client.</p>
+            <input type="hidden" id="edit-room-id">
+            <input type="text" id="edit-room-guest" placeholder="Nom complet..." autocomplete="off">
+            <input type="email" id="edit-room-email" placeholder="Adresse e-mail..." autocomplete="off">
+            <div style="display:flex; gap:1rem;">
+                <input type="date" id="edit-room-checkin" style="flex:1" style="background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.8rem; outline: none;">
+                <input type="date" id="edit-room-checkout" style="flex:1" style="background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.8rem; outline: none;">
+            </div>
+            <div style="display:flex; gap:1rem; justify-content:center; margin-top:1.5rem;">
+                <button class="btn" onclick="App.hideModals()">Annuler</button>
+                <button class="btn" onclick="App.saveRoomEdit()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE MODIFIER PRIME -->
+    <div id="edit-contract-modal" class="modal-overlay hidden">
+        <div class="modal">
+            <h2>Mettre à jour la prime</h2>
+            <p class="text-muted" style="margin-bottom: 1rem;">Ajustez la récompense pour ce contrat.</p>
+            <input type="hidden" id="edit-contract-id">
+            <input type="number" id="edit-contract-bounty" placeholder="Nouvelle prime en pièces d'or...">
+            <div style="display:flex; gap:1rem; justify-content:center; margin-top:1.5rem;">
+                <button class="btn" onclick="App.hideModals()">Annuler</button>
+                <button class="btn" onclick="App.saveContractBounty()">Sauvegarder</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT APPLICATION -->
+    <script>
+        const App = {
+            // --- 1. BASE DE DONNÉES SIMULÉE ---
+            db: {
+                users: {
+                    'winston': { id: 'U01', name: 'Winston Scott', role: 'Direction', isVIP: true, gold: 9999, status: 'Active' },
+                    'wick': { id: 'U02', name: 'John Wick', role: 'Assassin', isVIP: true, gold: 50, status: 'Active' },
+                    'charon': { id: 'U05', name: 'Charon', role: 'Concierge', isVIP: true, gold: 500, status: 'Active' },
+                    'nobody': { id: 'U04', name: 'Client Lambda', role: 'Standard', isVIP: false, gold: 0, status: 'Active' },
+                    'viggiano': { id: 'C-999', name: 'M. Viggiano', role: 'Client', isVIP: false, roomId: 'R-204', status: 'Active' }
+                },
+                contracts: [
+                    { id: 'C-001', target: 'Iosef Tarasov', bounty: 200, issuerId: 'U01', status: 'Ouvert', version: 1 }
+                ],
+                rooms: [
+                    { id: 'R-101', number: '101', type: 'Chambre Standard', price: 450, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Un confort luxueux et discret. Équipements de pointe et insonorisation absolue.', img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80' },
+                    { id: 'R-102', number: '102', type: 'Chambre Standard', price: 450, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Un confort luxueux et discret. Équipements de pointe et insonorisation absolue.', img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80' },
+                    { id: 'R-204', number: '204', type: 'Suite Prestige', price: 1200, status: 'Occupée', guest: 'M. Viggiano', email: 'viggiano@mail.com', checkIn: '2024-05-20', checkOut: '2024-05-30', identifiant: 'viggiano', desc: 'Espace généreux, mobilier d\'époque et vue panoramique.', img: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80' },
+                    { id: 'R-205', number: '205', type: 'Suite Prestige', price: 1200, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Espace généreux, mobilier d\'époque et vue panoramique.', img: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80' },
+                    { id: 'R-818', number: '818', type: 'Le Penthouse', price: 5000, status: 'Nettoyage', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Le summum du luxe. Accès privé, terrasse, coffre-fort tactique.', img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80' },
+                    { id: 'R-819', number: '819', type: 'Le Penthouse', price: 5000, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Le summum du luxe. Accès privé, terrasse, coffre-fort tactique.', img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80' }
+                ],
+                legalServices: [
+                    { id: 'ls1', name: 'Service d\'étage (Ménage)', desc: 'Un nettoyage complet et classique de votre chambre.' },
+                    { id: 'ls2', name: 'Réservation Spa', desc: 'Accès privilégié à nos bains thermaux et massages.' },
+                    { id: 'ls3', name: 'Voiturier', desc: 'Préparation de votre véhicule personnel à l\'entrée de l\'hôtel.' },
+                    { id: 'ls4', name: 'Réveil Téléphonique', desc: 'Appel personnalisé à l\'heure de votre choix par le concierge.' }
+                ],
+                // Inventaire public
+                publicMenu: {
+                    food: [
+                        { id: 'f1', name: 'Wagyu A5 & Truffe', desc: 'Filet pur, réduction de truffe noire et légumes de saison.', price: 180, img: 'https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=600&q=80' },
+                        { id: 'f2', name: 'Homard Bleu Thermidor', desc: 'Pêché ce matin, préparé de façon classique.', price: 140, img: 'https://images.unsplash.com/photo-1559742811-822873691df8?auto=format&fit=crop&w=600&q=80' },
+                        { id: 'f3', name: 'Caviar Beluga (50g)', desc: 'Servi avec blinis tièdes et crème épaisse.', price: 350, img: 'https://images.unsplash.com/photo-1596450514735-111a2fe02935?auto=format&fit=crop&w=600&q=80' },
+                        { id: 'f4', name: 'Pigeonneau Rôti', desc: 'Jus corsé, purée de céleri rave et figues.', price: 95, img: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=600&q=80' },
+                        { id: 'f5', name: 'Risotto aux Truffes Blanches', desc: 'Riz Acquerello, parmesan affiné 36 mois, truffe blanche d\'Alba.', price: 120, img: 'https://images.unsplash.com/photo-1633964913295-ceb43826e7c9?auto=format&fit=crop&w=600&q=80' }
+                    ],
+                    drinks: [
+                        { id: 'b1', name: 'Continental Martini', desc: 'Gin premium, vermouth sec, zeste de citron. Discret.', price: 35, img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80' },
+                        { id: 'b2', name: 'Château Margaux 2005', desc: 'Un grand cru exceptionnel pour célébrer une victoire.', price: 850, img: 'https://images.unsplash.com/photo-1584916201218-f4242ceb4809?auto=format&fit=crop&w=600&q=80' },
+                        { id: 'b3', name: 'Blanton\'s Single Barrel', desc: 'Bourbon du Kentucky, servi sec.', price: 45, img: 'https://images.unsplash.com/photo-1527281400683-1aae777175f8?auto=format&fit=crop&w=600&q=80' },
+                        { id: 'b4', name: 'Champagne Cristal Roederer', desc: 'Millésime d\'exception, bulles fines et élégantes.', price: 400, img: 'https://images.unsplash.com/photo-1585553616435-2dc0a54e271d?auto=format&fit=crop&w=600&q=80' },
+                        { id: 'b5', name: 'Cognac Richard Hennessy', desc: 'Assemblage des plus rares eaux-de-vie.', price: 950, img: 'https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?auto=format&fit=crop&w=600&q=80' }
+                    ]
+                },
+                // Inventaire Sommelier VIP (Armes ET Boissons Exclusives)
+                inventory: {
+                    weapons: [
+                        { id: 'w1', name: 'TTI Combat Master 2011', desc: 'Précision chirurgicale. Calibre 9mm.', price: 4, icon: 'fa-gun' },
+                        { id: 'w2', name: 'Benelli M4 Super 90', desc: 'Robuste, efficace. Pour les travaux lourds.', price: 5, icon: 'fa-person-rifle' },
+                        { id: 'w3', name: 'Lame Tactique OTF', desc: 'Lame frontale discrète. Idéal au corps à corps.', price: 1, icon: 'fa-crosshairs' },
+                        { id: 'w4', name: 'Costume Doublé Kevlar', desc: 'Élégant, léger, pare-balles.', price: 3, icon: 'fa-user-tie' }
+                    ],
+                    drinks: [
+                        { id: 'vd1', name: 'Macallan 1926 Fine & Rare', desc: 'Le Saint Graal du whisky. Servi pur.', price: 2, icon: 'fa-glass-whiskey' },
+                        { id: 'vd2', name: 'Louis XIII Rémy Martin', desc: 'Cognac d\'exception. La perfection en bouteille.', price: 1, icon: 'fa-wine-glass' },
+                        { id: 'vd3', name: 'Vodka Filtrée au Diamant', desc: 'Pureté absolue, discrétion totale.', price: 1, icon: 'fa-martini-glass-citrus' }
+                    ]
+                },
+                // Services de Conciergerie
+                roomServices: [
+                    { id: 'rs1', name: 'Pressing & Couture', desc: 'Nettoyage et réparation de vos costumes de soirée. ($)', cost: 'Standard ($)', type: 'normal' },
+                    { id: 'rs2', name: 'Service de Voiture', desc: 'Berline blindée avec chauffeur pour vos déplacements. ($)', cost: 'Standard ($)', type: 'normal' },
+                    { id: 'rs3', name: 'Soins Médicaux Avancés', desc: 'Suture, extraction de balles, traitement de la douleur.', cost: '2', type: 'gold', action: 'heal' },
+                    { id: 'rs4', name: 'Réservation pour un Dîner (Nettoyage)', desc: 'Service de nettoyage complet de chambre post-incident. Discrétion absolue.', cost: '1 (par corps)', type: 'gold', action: 'clean' }
+                ]
+            },
+            
+            // --- 2. ÉTAT COURANT ---
+            currentUser: null,
+            currentTheme: 'dark',
+            cart: [],
+
+            // --- 3. INITIALISATION ---
+            init() {
+                this.renderFaceA('home');
+            },
+
+            toggleTheme() {
+                if (this.currentUser && this.currentUser.status === 'Excommunicado') return;
+                this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', this.currentTheme);
+                document.querySelector('#theme-toggle i').className = this.currentTheme === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+            },
+
+            // --- 4. AUTHENTIFICATION & MODALES ---
+            showLogin() { document.getElementById('login-modal').classList.remove('hidden'); document.getElementById('auth-token').value = ''; document.getElementById('auth-token').focus(); },
+            hideModals() { document.querySelectorAll('.modal-overlay').forEach(el => el.classList.add('hidden')); },
+
+            login() {
+                const token = document.getElementById('auth-token').value.toLowerCase().trim();
+                const user = this.db.users[token];
+                this.hideModals();
+
+                if (!user) { 
+                    this.showToast("Identifiant inconnu. Accès refusé."); 
+                    return; 
+                }
+                if (user.status === 'Excommunicado') { 
+                    this.applyExcommunicadoProtocol(); 
+                    return; 
+                }
+
+                this.currentUser = user;
+                this.cart = [];
+                
+                if (this.currentUser.isVIP) {
+                    this.renderFaceB();
+                } else if (this.currentUser.role === 'Client') {
+                    this.showToast(`Bienvenue ${user.name}. Accès au portail client.`);
+                    this.renderClientDashboard();
+                } else {
+                    this.showToast(`Bienvenue ${user.name}.`);
+                    this.renderFaceA('home');
+                }
+            },
+
+            logout() {
+                this.currentUser = null;
+                this.cart = [];
+                document.getElementById('nav-vip').classList.add('hidden');
+                document.getElementById('nav-public').classList.remove('hidden');
+                document.getElementById('link-pub-client').classList.add('hidden');
+                document.getElementById('link-pub-logout').classList.add('hidden');
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.body.classList.remove('excommunicado-active');
+                this.renderFaceA('home');
+            },
+
+            // --- 5. NOTIFICATIONS (TOASTS) ---
+            showToast(message) {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.innerHTML = `<i class="fa-solid fa-bell-concierge"></i> <div>${message}</div>`;
+                container.appendChild(toast);
+                setTimeout(() => {
+                    toast.classList.add('fade-out');
+                    setTimeout(() => toast.remove(), 500);
+                }, 4000);
+            },
+
+            // --- 6. MOTEUR DE RENDU : FACE A (PUBLIC & CLIENT) ---
+            renderFaceA(page) {
+                if (document.body.classList.contains('excommunicado-active')) {
+                    this.showToast("Système verrouillé. L'administration a coupé vos accès.");
+                    return;
+                }
+
+                document.getElementById('nav-vip').classList.add('hidden');
+                document.getElementById('nav-public').classList.remove('hidden');
+                
+                // Gestion des onglets actifs
+                document.querySelectorAll('#nav-public a').forEach(a => a.classList.remove('active'));
+                const activeLink = document.getElementById('link-pub-' + page);
+                if (activeLink) activeLink.classList.add('active');
+
+                // Affichage du bouton "Mon Séjour" uniquement si connecté en tant que client
+                if (this.currentUser && this.currentUser.role === 'Client') {
+                    document.getElementById('link-pub-client').classList.remove('hidden');
+                    document.getElementById('link-pub-logout').classList.remove('hidden');
+                } else {
+                    document.getElementById('link-pub-client').classList.add('hidden');
+                    document.getElementById('link-pub-logout').classList.add('hidden');
+                }
+
+                const main = document.getElementById('main-content');
+
+                if (page === 'home') {
+                    main.innerHTML = `
+                        <div class="hero">
+                            <h1>Le Continental</h1>
+                            <p style="font-size: 1.2rem; letter-spacing: 1px;">L'élégance et la discrétion à votre service depuis 1904.</p>
+                        </div>
+                        <div style="text-align: center; max-width: 800px; margin: 0 auto; padding: 3rem 0;">
+                            <h2 style="margin-bottom: 1.5rem; font-size: 2.5rem;">Un havre de paix</h2>
+                            <p class="text-muted" style="font-size: 1.1rem; line-height: 1.8;">
+                                L'hôtel Le Continental offre un refuge de luxe pour les voyageurs exigeants.<br>
+                                Profitez de notre architecture intemporelle, de nos suites somptueuses et de nos services sur-mesure respectant les traditions les plus strictes de l'hôtellerie de classe mondiale.
+                            </p>
+                            <button class="btn" style="margin-top: 2rem;" onclick="App.renderFaceA('rooms')">Découvrir nos suites</button>
+                        </div>
+                        ${this.renderFooter()}
+                    `;
+                } else if (page === 'resto') {
+                    main.innerHTML = `
+                        <div style="text-align:center; margin-bottom: 3rem;">
+                            <i class="fa-solid fa-utensils" style="font-size: 3rem; color: var(--gold-accent); margin-bottom: 1rem;"></i>
+                            <h2>Haute Gastronomie</h2>
+                            <p class="text-muted">Des créations culinaires d'exception, livrables 24h/24 dans votre suite.</p>
+                        </div>
+                        ${this.renderPublicGrid(this.db.publicMenu.food)}
+                        ${this.renderFooter()}
+                    `;
+                } else if (page === 'bar') {
+                    main.innerHTML = `
+                        <div style="text-align:center; margin-bottom: 3rem;">
+                            <i class="fa-solid fa-martini-glass" style="font-size: 3rem; color: var(--gold-accent); margin-bottom: 1rem;"></i>
+                            <h2>Le Bar Lounge</h2>
+                            <p class="text-muted">Une sélection mondiale de spiritueux rares et de cocktails signature.</p>
+                        </div>
+                        ${this.renderPublicGrid(this.db.publicMenu.drinks)}
+                        ${this.renderFooter()}
+                    `;
+                } else if (page === 'rooms') {
+                    let roomsHtml = `<div class="menu-grid">`;
+                    this.db.rooms.filter(r => r.status === 'Disponible').forEach(r => {
+                        roomsHtml += `
+                            <div class="menu-card">
+                                <img src="${r.img}" class="menu-img" alt="${r.type}">
+                                <div class="menu-content">
+                                    <h3>${r.type} <span style="font-size:0.9rem; color:var(--text-muted)">N°${r.number}</span></h3>
+                                    <p>${r.desc}</p>
+                                    <div class="menu-footer">
+                                        <span class="menu-price">$${r.price}/nuit</span>
+                                        <button class="btn btn-small" onclick="App.openBookingModal('${r.id}')">Réserver</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    if(this.db.rooms.filter(r => r.status === 'Disponible').length === 0) {
+                        roomsHtml += `<p style="text-align:center; grid-column: 1 / -1; padding: 2rem;">Aucune chambre n'est disponible actuellement.</p>`;
+                    }
+                    roomsHtml += `</div>`;
+
+                    main.innerHTML = `
+                        <div style="text-align:center; margin-bottom: 3rem;">
+                            <i class="fa-solid fa-bed" style="font-size: 3rem; color: var(--gold-accent); margin-bottom: 1rem;"></i>
+                            <h2>Nos Chambres & Suites</h2>
+                            <p class="text-muted">Veuillez sélectionner une chambre pour procéder à la réservation.</p>
+                        </div>
+                        ${roomsHtml}
+                        ${this.renderFooter()}
+                    `;
+                }
+            },
+
+            renderPublicGrid(items) {
+                return `<div class="menu-grid">` + items.map(i => `
+                    <div class="menu-card">
+                        <img src="${i.img}" alt="${i.name}" class="menu-img">
+                        <div class="menu-content">
+                            <h3>${i.name}</h3>
+                            <p>${i.desc}</p>
+                            <div class="menu-footer">
+                                <span class="menu-price">$${i.price}</span>
+                                <button class="btn btn-small" onclick="App.showToast('Commande confirmée. Le service d\\'étage vous l\\'apportera dans un instant.')">Commander</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('') + `</div>`;
+            },
+
+            renderFooter() {
+                return `
+                    <footer class="site-footer">
+                        <div class="footer-brand">LE CONTINENTAL</div>
+                        <div class="footer-links">
+                            <a onclick="App.showToast('Politique de confidentialité classifiée.')">Confidentialité</a>
+                            <a onclick="App.showToast('Termes de service stricts.')">Conditions</a>
+                            <a onclick="App.showToast('Aucun poste à pourvoir actuellement.')">Carrières</a>
+                            <a onclick="App.showToast('Ligne sécurisée : 555-0199')">Contact</a>
+                        </div>
+                        <div class="footer-bottom">
+                            &copy; 2026 Le Continental. Sanctuaire international. Tous droits réservés.
+                        </div>
+                    </footer>
+                `;
+            },
+
+            renderClientDashboard() {
+                if (document.body.classList.contains('excommunicado-active')) return;
+
+                document.getElementById('nav-vip').classList.add('hidden');
+                document.getElementById('nav-public').classList.remove('hidden');
+                document.querySelectorAll('#nav-public a').forEach(a => a.classList.remove('active'));
+                document.getElementById('link-pub-client').classList.add('active');
+
+                const main = document.getElementById('main-content');
+                if (!this.currentUser) return;
+
+                const room = this.db.rooms.find(r => r.id === this.currentUser.roomId);
+
+                if (!room) {
+                    main.innerHTML = `<div style="text-align:center; padding: 5rem;"><h2>Aucune réservation active trouvée.</h2></div>`;
+                    return;
+                }
+
+                main.innerHTML = `
+                    <div style="max-width: 900px; margin: 0 auto; padding: 2rem 0;">
+                        <h2 style="font-size: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
+                            Bienvenue, ${this.currentUser.name}
+                        </h2>
+                        
+                        <div class="card" style="display:flex; flex-wrap: wrap; gap: 2rem; align-items: center;">
+                            <img src="${room.img}" style="width: 300px; border-radius: 4px; border: 1px solid var(--gold-accent);">
+                            <div>
+                                <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem;">${room.type} (N° ${room.number})</h3>
+                                <p class="text-muted" style="margin-bottom: 1rem;">${room.desc}</p>
+                                <p><strong>Date d'arrivée :</strong> ${room.checkIn ? new Date(room.checkIn).toLocaleDateString('fr-FR') : 'Non spécifiée'}</p>
+                                <p><strong>Date de départ :</strong> ${room.checkOut ? new Date(room.checkOut).toLocaleDateString('fr-FR') : 'Non spécifiée'}</p>
+                                <button class="btn btn-danger btn-small" style="margin-top: 1.5rem;" onclick="App.cancelClientReservation('${room.id}')">Annuler ma réservation</button>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 3rem; margin-bottom: 1.5rem; color: var(--gold-accent);"><i class="fa-solid fa-bell-concierge"></i> Services Hôteliers</h3>
+                        <p class="text-muted" style="margin-bottom: 2rem;">Des services inclus pour sublimer votre séjour au Continental.</p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem;">
+                            ${this.db.legalServices.map(srv => {
+                                return `
+                                <div class="card" style="padding: 1.5rem;">
+                                    <h4 style="margin-bottom: 0.5rem; font-size: 1.1rem;">${srv.name}</h4>
+                                    <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom: 1.5rem;">${srv.desc}</p>
+                                    <button class="btn btn-small" onclick="App.orderClientService('${srv.id}')">Demander</button>
+                                </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                    ${this.renderFooter()}
+                `;
+            },
+
+            orderClientService(id) {
+                const srv = this.db.legalServices.find(x => x.id === id);
+                if (srv) {
+                    this.showToast(`La réception a bien noté votre demande : ${srv.name}.`);
+                }
+            },
+
+            cancelClientReservation(roomId) {
+                const room = this.db.rooms.find(r => r.id === roomId);
+                if (room) {
+                    if (room.identifiant && this.db.users[room.identifiant]) {
+                        delete this.db.users[room.identifiant];
+                    }
+                    room.status = 'Disponible';
+                    room.guest = null;
+                    room.email = null;
+                    room.checkIn = null;
+                    room.checkOut = null;
+                    room.identifiant = null;
+                    
+                    this.showToast("Votre réservation a été annulée. Déconnexion en cours...");
+                    setTimeout(() => {
+                        this.logout();
+                    }, 2000);
+                }
+            },
+
+            // --- 7. MOTEUR DE RENDU : FACE B (VIP) ---
+            renderFaceB() {
+                document.getElementById('nav-public').classList.add('hidden');
+                document.getElementById('nav-vip').classList.remove('hidden');
+                this.showVIPSection('dashboard');
+            },
+
+            showVIPSection(section) {
+                if (!this.currentUser || !this.currentUser.isVIP) return;
+
+                // Mise à jour de la classe active dans la Top Nav
+                document.querySelectorAll('#nav-vip a').forEach(a => a.classList.remove('active'));
+                const activeLink = document.getElementById(`link-vip-${section}`);
+                if(activeLink) activeLink.classList.add('active');
+
+                let roomManagementLi = '';
+                if (['Direction', 'Concierge'].includes(this.currentUser.role)) {
+                    roomManagementLi = `<li class="${section === 'rooms' ? 'active' : ''}" onclick="App.showVIPSection('rooms')"><i class="fa-solid fa-bed" style="width:25px"></i> Gestion Chambres</li>`;
+                }
+
+                const main = document.getElementById('main-content');
+                let content = `
+                    <div class="vip-dashboard">
+                        <aside class="vip-sidebar">
+                            <div class="user-badge">
+                                <h3>${this.currentUser.name}</h3>
+                                <p class="text-muted" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">${this.currentUser.role}</p>
+                                <div class="gold-coins" id="ui-user-gold" title="Solde en pièces d'or">
+                                    <i class="fa-solid fa-coins"></i> ${this.currentUser.gold}
+                                </div>
+                            </div>
+                            <ul class="vip-menu">
+                                <li class="${section === 'dashboard' ? 'active' : ''}" onclick="App.showVIPSection('dashboard')"><i class="fa-solid fa-bell-concierge" style="width:25px"></i> Conciergerie</li>
+                                <li class="${section === 'armory' ? 'active' : ''}" onclick="App.showVIPSection('armory')"><i class="fa-solid fa-wine-bottle" style="width:25px"></i> Sommelier</li>
+                                <li class="${section === 'contracts' ? 'active' : ''}" onclick="App.showVIPSection('contracts')"><i class="fa-solid fa-briefcase" style="width:25px"></i> Contrats</li>
+                                ${roomManagementLi}
+                                <li class="${section === 'rules' ? 'active' : ''}" onclick="App.showVIPSection('rules')"><i class="fa-solid fa-book-skull" style="width:25px"></i> Règles</li>
+                            </ul>
+                        </aside>
+                        <section id="vip-content-area" style="padding-top: 1rem;">
+                `;
+
+                if (section === 'dashboard') content += this.renderConcierge();
+                else if (section === 'armory') content += this.renderSommelier();
+                else if (section === 'contracts') content += this.renderContractsBoard();
+                else if (section === 'rooms' && ['Direction', 'Concierge'].includes(this.currentUser.role)) content += this.renderRoomManagement();
+                else if (section === 'rules') content += this.renderRules();
+
+                content += `</section></div>`;
+                main.innerHTML = content;
+            },
+
+            // --- 8. CONCIERGERIE VIP ---
+            renderConcierge() {
+                let html = `
+                    <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Services Exclusifs</h2>
+                    <p class="text-muted" style="margin-bottom: 2rem;">Rappel : Aucun "travail" ne doit être effectué dans l'enceinte de l'hôtel.</p>
+                    <div class="service-list">
+                `;
+
+                this.db.roomServices.forEach(srv => {
+                    const costDisplay = srv.type === 'gold' ? `${srv.cost} <i class="fa-solid fa-coins" style="color:var(--gold-accent)"></i>` : srv.cost;
+                    html += `
+                        <div class="service-row">
+                            <div class="service-info">
+                                <h4>${srv.name}</h4>
+                                <p>${srv.desc}</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="margin-bottom: 0.5rem; font-weight: bold;">${costDisplay}</div>
+                                <button class="btn btn-small" onclick="App.orderService('${srv.id}')">Demander</button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `</div>`;
+                return html;
+            },
+
+            orderService(id) {
+                const srv = this.db.roomServices.find(s => s.id === id);
+                if (!srv) return;
+
+                if (srv.type === 'gold') {
+                    const cost = parseInt(srv.cost);
+                    if (this.currentUser.gold < cost) {
+                        this.showToast("Fonds insuffisants. La direction exige un paiement en pièces d'or.");
+                        return;
+                    }
+                    this.currentUser.gold -= cost;
+                    
+                    if(srv.action === 'heal') this.showToast("L'équipe médicale est en route vers votre chambre. Préparez-vous.");
+                    else if(srv.action === 'clean') this.showToast("Réservation confirmée pour le dîner. L'équipe de nettoyage arrive.");
+                    
+                    this.showVIPSection('dashboard');
+                } else {
+                    this.showToast(`Demande reçue pour : ${srv.name}. Le personnel s'en occupe.`);
+                }
+            },
+
+            // --- 9. LOGIQUE SOMMELIER & PANIER ---
+            renderSommelier() {
+                let html = `
+                    <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Le Sommelier</h2>
+                    <p class="text-muted" style="margin-bottom: 2.5rem;">"Une dégustation pour ce soir ?"</p>
+                    
+                    <h3 style="margin-bottom: 1.5rem; color: var(--gold-accent); border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;"><i class="fa-solid fa-gun"></i> Armement Tactique</h3>
+                    <div class="shop-grid" style="margin-bottom: 3rem;">
+                        ${this.db.inventory.weapons.map(w => this.renderShopItem(w)).join('')}
+                    </div>
+
+                    <h3 style="margin-bottom: 1.5rem; color: var(--gold-accent); border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;"><i class="fa-solid fa-wine-glass-empty"></i> Cave Réservée</h3>
+                    <div class="shop-grid">
+                        ${this.db.inventory.drinks.map(d => this.renderShopItem(d)).join('')}
+                    </div>
+                `;
+
+                if (this.cart.length > 0) {
+                    const total = this.cart.reduce((sum, item) => sum + item.price, 0);
+                    html += `
+                        <div class="cart-container">
+                            <h3 style="margin-bottom: 1.5rem;"><i class="fa-solid fa-cart-shopping"></i> Votre Commande</h3>
+                            <div>
+                                ${this.cart.map((item, index) => `
+                                    <div class="cart-item">
+                                        <span><i class="fa-solid ${item.icon}" style="width:30px; text-align:center;"></i> ${item.name}</span>
+                                        <div style="display:flex; align-items:center; gap: 1rem;">
+                                            <span style="font-weight:bold;">${item.price} <i class="fa-solid fa-coins" style="color:var(--gold-accent)"></i></span>
+                                            <button class="btn btn-danger btn-small" style="padding: 0.2rem 0.6rem;" onclick="App.removeFromCart(${index})"><i class="fa-solid fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="cart-total">
+                                <span>TOTAL</span>
+                                <span>${total} <i class="fa-solid fa-coins"></i></span>
+                            </div>
+                            <button class="btn btn-block" style="margin-top: 2rem;" onclick="App.checkout()">Valider la commande</button>
+                        </div>
+                    `;
+                }
+
+                return html;
+            },
+
+            renderShopItem(item) {
+                return `
+                    <div class="shop-item">
+                        <div>
+                            <i class="fa-solid ${item.icon}"></i>
+                            <h4>${item.name}</h4>
+                            <p>${item.desc}</p>
+                        </div>
+                        <div>
+                            <div class="item-price">${item.price} <i class="fa-solid fa-coins"></i></div>
+                            <button class="btn btn-small" onclick="App.addToCart('${item.id}')">Ajouter</button>
+                        </div>
+                    </div>
+                `;
+            },
+
+            addToCart(itemId) {
+                // Recherche dans les armes OU les boissons VIP
+                const item = this.db.inventory.weapons.find(i => i.id === itemId) || this.db.inventory.drinks.find(i => i.id === itemId);
+                if (item) { this.cart.push(item); this.showVIPSection('armory'); }
+            },
+
+            removeFromCart(index) {
+                this.cart.splice(index, 1);
+                this.showVIPSection('armory');
+            },
+
+            checkout() {
+                const total = this.cart.reduce((sum, item) => sum + item.price, 0);
+                if (this.currentUser.gold < total) {
+                    this.showToast("Fonds insuffisants. Le Sommelier vous regarde avec déception.");
+                    return;
+                }
+                this.currentUser.gold -= total;
+                this.cart = [];
+                this.showToast("Excellents choix. Vos articles vous attendent dans le coffre de votre suite.");
+                this.showVIPSection('armory');
+            },
+
+            // --- 10. RÈGLES VIP ---
+            renderRules() {
+                return `
+                    <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--danger-color);">Règles du Continental</h2>
+                    <p class="text-muted" style="margin-bottom: 2rem;">La direction exige le respect absolu de ces directives sous peine de conséquences définitives.</p>
+                    
+                    <div class="card" style="border-left-color: var(--danger-color);">
+                        <h3 style="margin-bottom: 1rem; color: white;">Règle N°1 : Aucune "Affaire" sur le terrain.</h3>
+                        <p class="text-muted" style="margin-bottom: 2rem;">Le Continental est un sanctuaire. Toute violence ou exécution de contrat sur le sol de l'hôtel est strictement interdite. Aucune exception, quelles que soient les circonstances.</p>
+                        
+                        <h3 style="margin-bottom: 1rem; color: white;">Règle N°2 : Les marqueurs doivent être honorés.</h3>
+                        <p class="text-muted" style="margin-bottom: 2rem;">Un serment par le sang est inviolable. Refuser un marqueur ou fuir ses obligations entraîne des conséquences fatales actées par la Grande Table.</p>
+                        
+                        <div style="padding-top: 2rem; border-top: 1px solid var(--border-color); text-align: center;">
+                            <p style="margin-bottom: 1rem; font-weight: bold; color: var(--danger-color);">Enfreindre ces règles entraîne l'Excommunication immédiate.</p>
+                            <button class="btn btn-danger" onclick="App.triggerExcommunicado()">Enfreindre les règles (Simulation)</button>
+                        </div>
+                    </div>
+                `;
+            },
+
+            // --- 11. GESTION DES CHAMBRES (NOUVEAU) ---
+            openBookingModal(roomId) {
+                document.getElementById('book-room-id').value = roomId;
+                document.getElementById('book-room-guest').value = '';
+                document.getElementById('book-room-email').value = '';
+                document.getElementById('book-room-checkin').value = '';
+                document.getElementById('book-room-checkout').value = '';
+                document.getElementById('book-room-identifiant').value = '';
+                document.getElementById('book-room-modal').classList.remove('hidden');
+            },
+
+            confirmBooking() {
+                const roomId = document.getElementById('book-room-id').value;
+                const guestName = document.getElementById('book-room-guest').value;
+                const email = document.getElementById('book-room-email').value;
+                const checkIn = document.getElementById('book-room-checkin').value;
+                const checkOut = document.getElementById('book-room-checkout').value;
+                const identifiant = document.getElementById('book-room-identifiant').value.toLowerCase().trim();
+                
+                if (!guestName.trim() || !email.trim() || !checkIn || !checkOut || !identifiant) {
+                    this.showToast("Veuillez renseigner toutes les informations pour finaliser la réservation.");
+                    return;
+                }
+
+                if (this.db.users[identifiant]) {
+                    this.showToast("Cet identifiant est déjà utilisé. Veuillez en choisir un autre.");
+                    return;
+                }
+
+                const room = this.db.rooms.find(r => r.id === roomId);
+                if (room) {
+                    room.status = 'Occupée';
+                    room.guest = guestName;
+                    room.email = email;
+                    room.checkIn = checkIn;
+                    room.checkOut = checkOut;
+                    room.identifiant = identifiant;
+
+                    // Création de l'utilisateur Client pour qu'il puisse se connecter
+                    this.db.users[identifiant] = { 
+                        id: 'C-' + Math.floor(Math.random() * 10000), 
+                        name: guestName, 
+                        role: 'Client', 
+                        isVIP: false, 
+                        roomId: room.id,
+                        status: 'Active' 
+                    };
+
+                    this.hideModals();
+                    this.showToast(`Réservation confirmée pour ${guestName}. Vous pouvez vous connecter au portail avec votre identifiant.`);
+                    this.renderFaceA('rooms');
+                }
+            },
+
+            renderRoomManagement() {
+                let html = `
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
+                        <h2 style="font-size: 2rem;">Gestion des Chambres</h2>
+                        <button class="btn" onclick="document.getElementById('add-room-form').classList.toggle('hidden')">+ Nouvelle Chambre</button>
+                    </div>
+                    
+                    <div id="add-room-form" class="card hidden" style="background: var(--bg-color);">
+                        <h3 style="margin-bottom: 1rem;">Ajouter une chambre au système</h3>
+                        <div style="display:flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;">
+                            <input type="text" id="new-room-num" placeholder="Numéro (ex: 301)" style="flex:1; padding: 0.8rem; background: var(--bg-panel); border: 1px solid var(--border-color); color: white;">
+                            <select id="new-room-type" style="flex:2; padding: 0.8rem; background: var(--bg-panel); border: 1px solid var(--border-color); color: white; font-family: inherit; outline: none; cursor: pointer;">
+                                <option value="" disabled selected>Type de chambre...</option>
+                                <option value="Chambre Standard">Chambre Standard</option>
+                                <option value="Suite Prestige">Suite Prestige</option>
+                                <option value="Le Penthouse">Le Penthouse</option>
+                            </select>
+                            <input type="number" id="new-room-price" placeholder="Prix ($)" style="flex:1; padding: 0.8rem; background: var(--bg-panel); border: 1px solid var(--border-color); color: white;">
+                        </div>
+                        <button class="btn" onclick="App.submitNewRoom()">Ajouter</button>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+                `;
+
+                this.db.rooms.forEach(room => {
+                    const statusColor = room.status === 'Disponible' ? 'var(--success-color)' : (room.status === 'Occupée' ? 'var(--danger-color)' : 'var(--gold-accent)');
+                    
+                    let stayInfo = '';
+                    if (room.checkIn) {
+                        stayInfo = `<br>Séjour : ${new Date(room.checkIn).toLocaleDateString('fr-FR')} au ${new Date(room.checkOut).toLocaleDateString('fr-FR')}`;
+                    }
+
+                    let editBtn = '';
+                    if (room.status === 'Occupée') {
+                        editBtn = `<button class="btn btn-small" onclick="App.openEditRoomModal('${room.id}')"><i class="fa-solid fa-pen"></i> Éditer</button>`;
+                    }
+
+                    html += `
+                        <div class="card" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; gap: 1rem;">
+                            <div style="flex: 1; min-width: 250px;">
+                                <h3 style="margin-bottom: 0.2rem;">Chambre ${room.number} <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: normal;">- ${room.type}</span></h3>
+                                <p style="font-size: 0.85rem; color: var(--text-muted);">
+                                    Prix : $${room.price} | Client : ${room.guest ? room.guest : 'Aucun'}
+                                    ${stayInfo}
+                                </p>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                                <span style="font-weight: bold; color: ${statusColor}; min-width: 85px; text-align: center;">${room.status}</span>
+                                ${editBtn}
+                                <select onchange="App.changeRoomStatus('${room.id}', this.value)" style="background: var(--bg-color); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.5rem; font-family: inherit;">
+                                    <option value="" disabled selected>Action...</option>
+                                    <option value="Disponible">Marquer Disponible</option>
+                                    <option value="Occupée">Marquer Occupée</option>
+                                    <option value="Nettoyage">Envoyer au Nettoyage</option>
+                                </select>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `</div>`;
+                return html;
+            },
+
+            submitNewRoom() {
+                const num = document.getElementById('new-room-num').value;
+                const type = document.getElementById('new-room-type').value;
+                const price = parseInt(document.getElementById('new-room-price').value);
+
+                if (!num || !type || isNaN(price)) {
+                    this.showToast("Veuillez remplir tous les champs correctement.");
+                    return;
+                }
+
+                let img = 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80';
+                if(type.toLowerCase().includes('suite')) img = 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80';
+                if(type.toLowerCase().includes('penthouse')) img = 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80';
+
+                this.db.rooms.push({
+                    id: 'R-' + Math.floor(Math.random() * 10000),
+                    number: num,
+                    type: type,
+                    price: price,
+                    status: 'Disponible',
+                    guest: null,
+                    email: null,
+                    checkIn: null,
+                    checkOut: null,
+                    identifiant: null,
+                    desc: 'Chambre confortable et sécurisée, fidèle aux standards du Continental.',
+                    img: img
+                });
+                
+                this.showToast("Nouvelle chambre ajoutée au système.");
+                this.showVIPSection('rooms');
+            },
+
+            changeRoomStatus(roomId, newStatus) {
+                const room = this.db.rooms.find(r => r.id === roomId);
+                if (room) {
+                    room.status = newStatus;
+                    if (newStatus === 'Disponible' || newStatus === 'Nettoyage') {
+                        // Purge des données client
+                        if (room.identifiant && this.db.users[room.identifiant]) {
+                            delete this.db.users[room.identifiant];
+                        }
+                        room.guest = null;
+                        room.email = null;
+                        room.checkIn = null;
+                        room.checkOut = null;
+                        room.identifiant = null;
+                    }
+                    this.showToast(`Statut de la chambre ${room.number} mis à jour : ${newStatus}`);
+                    this.showVIPSection('rooms');
+                }
+            },
+
+            openEditRoomModal(roomId) {
+                const room = this.db.rooms.find(r => r.id === roomId);
+                if (room) {
+                    document.getElementById('edit-room-id').value = room.id;
+                    document.getElementById('edit-room-guest').value = room.guest || '';
+                    document.getElementById('edit-room-email').value = room.email || '';
+                    document.getElementById('edit-room-checkin').value = room.checkIn || '';
+                    document.getElementById('edit-room-checkout').value = room.checkOut || '';
+                    document.getElementById('edit-room-modal').classList.remove('hidden');
+                }
+            },
+
+            saveRoomEdit() {
+                const roomId = document.getElementById('edit-room-id').value;
+                const room = this.db.rooms.find(r => r.id === roomId);
+                
+                if (room) {
+                    const newGuest = document.getElementById('edit-room-guest').value;
+                    room.guest = newGuest;
+                    room.email = document.getElementById('edit-room-email').value;
+                    room.checkIn = document.getElementById('edit-room-checkin').value;
+                    room.checkOut = document.getElementById('edit-room-checkout').value;
+                    
+                    // Répercuter la modification sur l'utilisateur s'il existe
+                    if (room.identifiant && this.db.users[room.identifiant]) {
+                        this.db.users[room.identifiant].name = newGuest;
+                    }
+
+                    this.hideModals();
+                    this.showToast("Les informations de la chambre ont été mises à jour.");
+                    this.showVIPSection('rooms');
+                }
+            },
+
+            // --- 12. LOGIQUE CONTRATS ---
+            renderContractsBoard() {
+                let html = `
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
+                        <h2 style="font-size: 2rem;">Tableau des Contrats</h2>
+                        ${this.currentUser.role === 'Direction' ? `<button class="btn" onclick="document.getElementById('contract-form').classList.toggle('hidden')">+ Nouveau Contrat</button>` : ''}
+                    </div>
+                    
+                    <div id="contract-form" class="card hidden" style="background: var(--bg-color);">
+                        <h3 style="margin-bottom: 1rem;">Émettre un nouveau contrat</h3>
+                        <div style="display:flex; gap: 1rem; margin-bottom: 1rem;">
+                            <input type="text" id="new-target" placeholder="Cible (Nom)" style="flex-grow:1; padding: 0.8rem; background: var(--bg-panel); border: 1px solid var(--border-color); color: white;">
+                            <input type="number" id="new-bounty" placeholder="Prime (Pièces)" style="width:150px; padding: 0.8rem; background: var(--bg-panel); border: 1px solid var(--border-color); color: white;">
+                        </div>
+                        <button class="btn" onclick="App.submitContract()">Publier le contrat</button>
+                    </div>
+                `;
+
+                this.db.contracts.forEach(contract => {
+                    let actionBtn1 = '';
+                    if (contract.status === 'Ouvert' && this.currentUser.role === 'Assassin') {
+                        actionBtn1 = `<button class="btn" onclick="App.acceptContract('${contract.id}')">Accepter le contrat</button>`;
+                    }
+                    
+                    let actionBtn2 = '';
+                    if (this.currentUser.role === 'Direction') {
+                        actionBtn2 = `<button class="btn" onclick="App.openEditModal('${contract.id}')">Modifier Prime</button>`;
+                    }
+
+                    html += `
+                        <div class="card">
+                            <div style="display:flex; justify-content:space-between; color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+                                <span>ID: ${contract.id} | Version: ${contract.version}</span>
+                                <span style="font-weight:bold; color:${contract.status === 'Ouvert' ? 'var(--gold-accent)' : 'var(--success-color)'}">${contract.status}</span>
+                            </div>
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Cible : ${contract.target}</h3>
+                            <div class="gold-coins" style="justify-content: flex-start; margin: 1rem 0; font-size: 1.5rem;">
+                                <i class="fa-solid fa-coins"></i> ${contract.bounty}
+                            </div>
+                            
+                            <div style="margin-top:1.5rem; display:flex; gap:1rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                                ${actionBtn1}
+                                ${actionBtn2}
+                            </div>
+                        </div>
+                    `;
+                });
+                return html;
+            },
+
+            submitContract() {
+                const target = document.getElementById('new-target').value;
+                const bounty = parseInt(document.getElementById('new-bounty').value);
+                if (!target || isNaN(bounty)) { this.showToast("Veuillez remplir tous les champs correctement."); return; }
+
+                this.db.contracts.push({
+                    id: 'C-' + Math.floor(Math.random() * 1000).toString().padStart(3, '0'),
+                    target: target, bounty: bounty, issuerId: this.currentUser.id, status: 'Ouvert', version: 1
+                });
+                this.showToast("Contrat publié avec succès sur le réseau.");
+                this.showVIPSection('contracts');
+            },
+
+            acceptContract(id) {
+                const c = this.db.contracts.find(x => x.id === id);
+                if (c) {
+                    c.status = 'Accepté par ' + this.currentUser.name;
+                    c.version++;
+                    this.showToast(`Contrat accepté. Bonne chasse, ${this.currentUser.name}.`);
+                    this.showVIPSection('contracts');
+                }
+            },
+
+            openEditModal(id) {
+                const c = this.db.contracts.find(x => x.id === id);
+                if (c) {
+                    document.getElementById('edit-contract-id').value = id;
+                    document.getElementById('edit-contract-bounty').value = c.bounty;
+                    document.getElementById('edit-contract-modal').classList.remove('hidden');
+                }
+            },
+
+            saveContractBounty() {
+                const id = document.getElementById('edit-contract-id').value;
+                const newBounty = parseInt(document.getElementById('edit-contract-bounty').value);
+                const c = this.db.contracts.find(x => x.id === id);
+                
+                if (c && !isNaN(newBounty) && newBounty > 0) {
+                    c.bounty = newBounty;
+                    c.version++;
+                    this.hideModals();
+                    this.showToast("Prime mise à jour avec succès.");
+                    this.showVIPSection('contracts');
+                } else {
+                    this.showToast("Montant invalide.");
+                }
+            },
+
+            // --- 12. SÉCURITÉ : EXCOMMUNICADO ---
+            triggerExcommunicado() {
+                // Remplacement de 'confirm()' qui peut causer des erreurs dans cet environnement.
+                this.showToast("Violation critique des règles. Initialisation du protocole d'Excommunication...");
+                
+                const userKey = Object.keys(this.db.users).find(key => this.db.users[key].id === this.currentUser.id);
+                this.db.users[userKey].status = 'Excommunicado';
+                
+                // Léger délai pour l'immersion
+                setTimeout(() => {
+                    this.applyExcommunicadoProtocol();
+                }, 1000);
+            },
+
+            applyExcommunicadoProtocol() {
+                this.currentUser = null;
+                document.documentElement.setAttribute('data-theme', 'excommunicado');
+                document.body.classList.add('excommunicado-active');
+                document.getElementById('nav-vip').classList.add('hidden');
+                document.getElementById('nav-public').classList.add('hidden');
+                document.querySelector('.nav-controls').classList.add('hidden');
+
+                document.getElementById('main-content').innerHTML = `
+                    <div style="text-align: center; margin-top: 10vh;">
+                        <i class="fa-solid fa-triangle-exclamation" style="font-size: 6rem; color: var(--danger-color); margin-bottom: 2rem; text-shadow: 0 0 20px rgba(255,0,0,0.5);"></i>
+                        <h1 style="color: var(--danger-color); font-size: 5rem; letter-spacing: 10px; text-transform: uppercase; text-shadow: 0 0 20px rgba(255,0,0,0.5);">Excommunicado</h1>
+                        <p style="font-size: 1.5rem; color: var(--text-muted); max-width: 700px; margin: 3rem auto; line-height: 2;">
+                            Une violation des règles a été détectée.<br>Vos privilèges sont révoqués. Tous les contrats vous concernant sont désormais actifs.<br>Vous avez 1 heure.
+                        </p>
+                    </div>
+                `;
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => App.init());
+    </script>
+</body>
+</html>
