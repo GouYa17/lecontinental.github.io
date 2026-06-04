@@ -233,7 +233,7 @@
         
         .hero { 
             text-align: center; padding: 7rem 0; 
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1542314831-c6a420325142?auto=format&fit=crop&w=1920&q=80') center/cover; 
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://www.nbc.com/sites/nbcblog/files/2023/09/the-continental-the-hotel-bar-experience-2.jpg') center/cover; 
             margin: -2rem -5% 3rem -5%; color: #fff;
             border-bottom: 2px solid var(--gold-accent);
         }
@@ -285,7 +285,7 @@
         /* Grilles Sommelier VIP */
         .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
         .shop-item { background: var(--bg-panel); border: 1px solid var(--border-color); padding: 1.5rem; text-align: center; border-radius: 4px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow-subtle); }
-        .shop-item:hover { border-color: var(--gold-accent); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+        .shop-item:hover { border-color: var(--gold-accent); transform: translateY(-3px); box-shadow: var(--shadow-hover); border-color: var(--gold-accent); }
         .shop-item i { font-size: 3rem; color: var(--gold-accent); margin-bottom: 1.5rem; }
         .shop-item h4 { font-size: 1.1rem; margin-bottom: 0.5rem; }
         .shop-item p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem; flex-grow: 1;}
@@ -421,9 +421,9 @@
                         </div>
                     </div>
                     <div class="spec-item">
-                        <i class="fa-solid fa-shield-halved"></i>
+                        <i class="fa-solid fa-star"></i>
                         <div>
-                            <strong>Équipements tactiques & Extras</strong>
+                            <strong>Équipements & Prestations</strong>
                             <span id="drawer-extras">-</span>
                         </div>
                     </div>
@@ -529,12 +529,12 @@
                     { id: 'C-001', target: 'Iosef Tarasov', bounty: 200, issuerId: 'U01', status: 'Ouvert', version: 1 }
                 ],
                 rooms: [
-                    { id: 'R-101', number: '101', type: 'Chambre Standard', price: 450, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Un confort luxueux et discret. Équipements de pointe, coffre-fort biométrique et insonorisation absolue pour des nuits calmes.', img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80', size: '45 m²', pieces: 1, extras: 'Coffre-fort tactique chiffré, Insonorisation blindée, Téléphone direct réception' },
-                    { id: 'R-102', number: '102', type: 'Chambre Standard', price: 450, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Un confort luxueux et discret. Équipements de pointe, coffre-fort biométrique et insonorisation absolue pour des nuits calmes.', img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80', size: '45 m²', pieces: 1, extras: 'Coffre-fort tactique biométrique, Ligne cryptée satellite, Système d\'alarme indépendant' },
-                    { id: 'R-204', number: '204', type: 'Suite Prestige', price: 1200, status: 'Occupée', guest: 'M. Viggiano', email: 'viggiano@mail.com', checkIn: '2024-05-20', checkOut: '2024-05-30', identifiant: 'viggiano', desc: 'Espace généreux, mobilier d\'époque d\'une grande valeur historique et vue panoramique sur les toits de la ville.', img: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80', size: '120 m²', pieces: 3, extras: 'Armurerie secrète intégrée, Vitres pare-balles de classe IV, Bain thermal privé en marbre' },
-                    { id: 'R-205', number: '205', type: 'Suite Prestige', price: 1200, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Espace généreux, mobilier d\'époque d\'une grande valeur historique et vue panoramique sur les toits de la ville.', img: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80', size: '120 m²', pieces: 3, extras: 'Armurerie murale camouflée, SAS d\'entrée sécurisé, Dressing blindé à fermeture magnétique' },
-                    { id: 'R-818', number: '818', type: 'Le Penthouse', price: 5000, status: 'Nettoyage', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Le summum du luxe international. Accès privé ultra-sécurisé, terrasse privée à 360°, et coffre-fort de niveau militaire.', img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80', size: '350 m²', pieces: 6, extras: 'Héliport d\'évacuation privé direct, Serveur chiffré autonome, Double barrières thermiques et blindées' },
-                    { id: 'R-819', number: '819', type: 'Le Penthouse', price: 5000, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Le summum du luxe international. Accès privé ultra-sécurisé, terrasse privée à 360°, et coffre-fort de niveau militaire.', img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80', size: '350 m²', pieces: 6, extras: 'Héliport d\'évacuation, Stock d\'armement tactique intégré, Système de survie en circuit autonome' }
+                    { id: 'R-101', number: '101', type: 'Chambre Standard', price: 450, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Un confort luxueux et discret. Équipements technologiques de pointe, literie d\'exception et insonorisation absolue pour des nuits calmes.', img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80', size: '45 m²', pieces: 1, extras: 'Coffre-fort numérique moderne, Insonorisation supérieure, Téléphone direct réception, Mini-bar d\'accueil' },
+                    { id: 'R-102', number: '102', type: 'Chambre Standard', price: 450, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Un confort luxueux et discret. Équipements haut de gamme, literie d\'exception et insonorisation absolue.', img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80', size: '45 m²', pieces: 1, extras: 'Coffre-fort numérique de haute sécurité, Connexion Wi-Fi haut débit, Téléphone de bureau' },
+                    { id: 'R-204', number: '204', type: 'Suite Prestige', price: 1200, status: 'Occupée', guest: 'M. Viggiano', email: 'viggiano@mail.com', checkIn: '2024-05-20', checkOut: '2024-05-30', identifiant: 'viggiano', desc: 'Espace généreux, mobilier d\'époque d\'une grande valeur historique et vue panoramique sur les toits de la ville.', img: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80', size: '120 m²', pieces: 3, extras: 'Salon de réception privé, Salle de bain en marbre d\'Italie, Dressing spacieux, Majordome sur demande' },
+                    { id: 'R-205', number: '205', type: 'Suite Prestige', price: 1200, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Espace généreux, mobilier d\'époque d\'une grande valeur historique et vue panoramique sur les toits de la ville.', img: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80', size: '120 m²', pieces: 3, extras: 'Salon indépendant, Lit King Size de luxe, Double vasque en marbre, Bar privé approvisionné' },
+                    { id: 'R-818', number: '818', type: 'Le Penthouse', price: 5000, status: 'Nettoyage', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Le summum du luxe international. Accès privé hautement sécurisé, terrasse paysagère privée à 360°, et prestations hôtelières d\'exception.', img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80', size: '350 m²', pieces: 6, extras: 'Accès par ascenseur privé, Terrasse panoramique exclusive, Salon de réception avec piano, Concierge dédié' },
+                    { id: 'R-819', number: '819', type: 'Le Penthouse', price: 5000, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Le summum du luxe international. Accès privé hautement sécurisé, terrasse paysagère privée à 360°, et prestations hôtelières d\'exception.', img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80', size: '350 m²', pieces: 6, extras: 'Ascenseur privé, Balcon circulaire, Salle de bain en marbre avec spa, Chef privé sur demande' }
                 ],
                 legalServices: [
                     { id: 'ls1', name: 'Service d\'étage (Ménage)', desc: 'Un nettoyage complet et classique de votre chambre.' },
@@ -573,7 +573,7 @@
                         { id: 'vd3', name: 'Vodka Filtrée au Diamant', desc: 'Pureté absolue, discrétion totale.', price: 1, icon: 'fa-martini-glass-citrus' }
                     ]
                 },
-                // Services de Conciergerie
+                // Services de Conciergerie VIP
                 roomServices: [
                     { id: 'rs1', name: 'Pressing & Couture', desc: 'Nettoyage et réparation de vos costumes de soirée. ($)', cost: 'Standard ($)', type: 'normal' },
                     { id: 'rs2', name: 'Service de Voiture', desc: 'Berline blindée avec chauffeur pour vos déplacements. ($)', cost: 'Standard ($)', type: 'normal' },
@@ -675,7 +675,7 @@
                     document.getElementById('drawer-desc').innerText = room.desc;
                     document.getElementById('drawer-size').innerText = room.size || '45 m²';
                     document.getElementById('drawer-pieces').innerText = room.pieces || 1;
-                    document.getElementById('drawer-extras').innerText = room.extras || 'Aucun équipement de combat supplémentaire.';
+                    document.getElementById('drawer-extras').innerText = room.extras || 'Aucun équipement supplémentaire.';
                     document.getElementById('drawer-price').innerText = `$${room.price}/nuit`;
 
                     const bookBtn = document.getElementById('drawer-book-btn');
@@ -1089,7 +1089,7 @@
                 this.showVIPSection('armory');
             },
 
-            // --- 10. RÈGLES VIP ---
+            // --- 10. RÈGLES VIP (Traduction en 'strictement') ---
             renderRules() {
                 return `
                     <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--danger-color);">Règles du Continental</h2>
@@ -1097,7 +1097,7 @@
                     
                     <div class="card" style="border-left-color: var(--danger-color);">
                         <h3 style="margin-bottom: 1rem; color: white;">Règle N°1 : Aucune "Affaire" sur le terrain.</h3>
-                        <p class="text-muted" style="margin-bottom: 2rem;">Le Continental est un sanctuaire. Toute violence ou exécution de contrat sur le sol de l'hôtel est strictly interdite. Aucune exception, quelles que soient les circonstances.</p>
+                        <p class="text-muted" style="margin-bottom: 2rem;">Le Continental est un sanctuaire. Toute violence ou exécution de contrat sur le sol de l'hôtel est <strong>strictement</strong> interdite. Aucune exception, quelles que soient les circonstances.</p>
                         
                         <h3 style="margin-bottom: 1rem; color: white;">Règle N°2 : Les marqueurs doivent être honorés.</h3>
                         <p class="text-muted" style="margin-bottom: 2rem;">Un serment par le sang est inviolable. Refuser un marqueur ou fuir ses obligations entraîne des conséquences fatales actées par la Grande Table.</p>
@@ -1239,15 +1239,15 @@
                 }
 
                 let img = 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80';
-                let size = '45 m²', pieces = 1, extras = 'Coffre tactique basique, Double vitrage standard';
+                let size = '45 m²', pieces = 1, extras = 'Coffre-fort d\'hôtel numérique, Insonorisation renforcée, Double vitrage standard';
                 
                 if(type.toLowerCase().includes('suite')) {
                     img = 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80';
-                    size = '120 m²'; pieces = 3; extras = 'Armurerie murale camouflée, Double vitrage pare-balles, Entrée sécurisée';
+                    size = '120 m²'; pieces = 3; extras = 'Salon de réception privé, Salle de bain double en marbre d\'Italie, Mini-bar complet';
                 }
                 if(type.toLowerCase().includes('penthouse')) {
                     img = 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80';
-                    size = '350 m²'; pieces = 6; extras = 'Héliport d\'évacuation direct, Serveur réseau autonome chiffré, SAS blindé';
+                    size = '350 m²'; pieces = 6; extras = 'Accès par ascenseur privé, Terrasse panoramique avec salon paysager, Spa de luxe';
                 }
 
                 this.db.rooms.push({
@@ -1261,7 +1261,7 @@
                     checkIn: null,
                     checkOut: null,
                     identifiant: null,
-                    desc: 'Chambre confortable et sécurisée, fidèle aux standards de discrétion du Continental.',
+                    desc: 'Chambre confortable et hautement sécurisée, fidèle aux plus hautes exigences de l\'hôtellerie de luxe.',
                     img: img,
                     size: size,
                     pieces: pieces,
@@ -1422,7 +1422,7 @@
                 }
             },
 
-            // --- 12. SÉCURITÉ : EXCOMMUNICADO ---
+            // --- 13. SÉCURITÉ : EXCOMMUNICADO ---
             triggerExcommunicado() {
                 this.showToast("Violation critique des règles. Initialisation du protocole d'Excommunication...");
                 
