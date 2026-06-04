@@ -103,8 +103,128 @@
         nav a.active { border-bottom: 2px solid var(--gold-accent); padding-bottom: 4px; }
         
         .nav-controls { display: flex; align-items: center; gap: 1rem; }
-        #secret-login-trigger { opacity: 0.05; cursor: pointer; font-size: 0.6rem; padding: 10px; }
-        #secret-login-trigger:hover { opacity: 1; color: var(--gold-accent); }
+        
+        /* Style haut de gamme et plus visible pour le bouton Se Connecter */
+        .btn-login {
+            background: var(--gold-accent);
+            color: var(--bg-color);
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+        }
+        .btn-login:hover {
+            background: var(--gold-hover);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* ==========================================================================
+           VOLET COULISSANT (DRAWER / SIDE PANEL)
+           ========================================================================== */
+        .drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            justify-content: flex-end;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .drawer-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .drawer-content {
+            width: 100%;
+            max-width: 480px;
+            background: var(--bg-panel);
+            height: 100%;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
+            border-left: 3px solid var(--gold-accent);
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .drawer-overlay.active .drawer-content {
+            transform: translateX(0);
+        }
+        .drawer-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-secondary);
+        }
+        .close-drawer-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+        .close-drawer-btn:hover {
+            color: var(--gold-accent);
+        }
+        .drawer-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .drawer-hero-img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+        .drawer-specs {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            background: var(--bg-secondary);
+            padding: 1.2rem;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+        .spec-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        .spec-item i {
+            color: var(--gold-accent);
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+            width: 20px;
+            text-align: center;
+        }
+        .spec-item strong {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+        .spec-item span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .drawer-footer-price {
+            margin-top: auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
         /* ==========================================================================
            CONTENU PRINCIPAL & GRILLES DE MENUS
@@ -127,7 +247,6 @@
         .home-image { flex: 1; min-width: 300px; min-height: 450px; background-size: cover; background-position: center; border-radius: 4px; box-shadow: var(--shadow-subtle); border: 1px solid var(--border-color); position: relative; }
         .home-image::after { content: ''; position: absolute; inset: 0; border: 1px solid var(--gold-accent); opacity: 0.3; margin: 10px; pointer-events: none; }
 
-        /* Grilles Publiques (Restauration / Bar) */
         .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem; }
         .menu-card { 
             background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 6px; 
@@ -139,7 +258,7 @@
         .menu-content { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
         .menu-content h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
         .menu-content p { color: var(--text-muted); font-size: 0.9rem; flex-grow: 1; margin-bottom: 1.5rem; }
-        .menu-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid var(--border-color); padding-top: 1rem;}
+        .menu-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid var(--border-color); padding-top: 1rem; gap: 0.5rem;}
         .menu-price { font-size: 1.2rem; font-weight: bold; color: var(--gold-accent); font-family: 'Playfair Display', serif; }
 
         /* Footer */
@@ -184,11 +303,39 @@
         .service-info h4 { margin-bottom: 0.3rem; }
         .service-info p { color: var(--text-muted); font-size: 0.85rem; }
 
-        /* Modales */
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 1000; }
-        .modal { background: var(--bg-panel); padding: 3rem; border: 1px solid var(--gold-accent); width: 100%; max-width: 450px; text-align: center; box-shadow: 0 0 40px rgba(0,0,0,0.9); border-radius: 4px; }
+        /* Modales fixed (Correction de l'emplacement) */
+        .modal-overlay { 
+            position: fixed; 
+            inset: 0; 
+            background: rgba(0,0,0,0.85); 
+            backdrop-filter: blur(5px); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 1000; 
+        }
+        .modal { 
+            background: var(--bg-panel); 
+            padding: 3rem; 
+            border: 1px solid var(--gold-accent); 
+            width: 100%; 
+            max-width: 450px; 
+            text-align: center; 
+            box-shadow: 0 0 40px rgba(0,0,0,0.9); 
+            border-radius: 4px; 
+        }
         .modal h2 { margin-bottom: 1rem; }
-        .modal input { width: 100%; padding: 1rem; margin: 1rem 0; background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); text-align: center; font-size: 1rem; }
+        .modal input { 
+            width: 100%; 
+            padding: 1rem; 
+            margin: 1rem 0; 
+            background: var(--bg-color); 
+            border: 1px solid var(--border-color); 
+            color: var(--text-main); 
+            text-align: center; 
+            font-size: 1rem; 
+            border-radius: 2px;
+        }
         .modal input:focus { outline: none; border-color: var(--gold-accent); }
 
         /* Toasts (Notifications) */
@@ -212,36 +359,86 @@
             <i class="fa-solid fa-hotel"></i> Le Continental
         </a>
         <nav>
-            <!-- Menu Public -->
             <ul id="nav-public">
                 <li><a id="link-pub-home" class="active" onclick="App.renderFaceA('home')">Accueil</a></li>
                 <li><a id="link-pub-rooms" onclick="App.renderFaceA('rooms')">Chambres</a></li>
                 <li><a id="link-pub-resto" onclick="App.renderFaceA('resto')">Restauration</a></li>
                 <li><a id="link-pub-bar" onclick="App.renderFaceA('bar')">Bar Lounge</a></li>
                 <li><a id="link-pub-client" class="hidden gold-text" onclick="App.renderClientDashboard()"><i class="fa-solid fa-key"></i> Mon Séjour</a></li>
-                <li><a id="link-pub-logout" class="hidden" onclick="App.logout()" style="color: var(--danger-color); cursor: pointer;"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</a></li>
             </ul>
-            <!-- Menu VIP -->
             <ul id="nav-vip" class="hidden">
                 <li><a id="link-vip-dashboard" onclick="App.showVIPSection('dashboard')">Conciergerie</a></li>
                 <li><a id="link-vip-armory" onclick="App.showVIPSection('armory')">Sommelier</a></li>
                 <li><a id="link-vip-contracts" onclick="App.showVIPSection('contracts')">Contrats</a></li>
                 <li><button class="btn btn-danger btn-small" onclick="App.triggerExcommunicado()">Règles</button></li>
-                <li><button class="btn btn-small" onclick="App.logout()">Déconnexion</button></li>
             </ul>
         </nav>
         <div class="nav-controls">
             <button class="btn btn-small" id="theme-toggle" onclick="App.toggleTheme()" title="Basculer Jour/Nuit">
                 <i class="fa-solid fa-moon"></i>
             </button>
-            <i class="fa-solid fa-circle" id="secret-login-trigger" onclick="App.showLogin()"></i>
+            <button class="btn btn-small btn-login" id="main-login-btn" onclick="App.showLogin()">
+                <i class="fa-solid fa-right-to-bracket"></i> Se connecter
+            </button>
+            <button class="btn btn-danger btn-small hidden" id="global-logout-btn" onclick="App.logout()">
+                <i class="fa-solid fa-right-from-bracket"></i> Déconnexion
+            </button>
         </div>
     </header>
 
     <!-- CONTENU PRINCIPAL -->
     <main id="main-content">
-        <!-- Rempli dynamiquement par le JS -->
     </main>
+
+    <!-- VOLET LATÉRAL : PLUS D'INFOS CHAMBRE -->
+    <div id="room-details-drawer" class="drawer-overlay" onclick="App.closeRoomDrawer(event)">
+        <div class="drawer-content" onclick="event.stopPropagation()">
+            <div class="drawer-header">
+                <h2 id="drawer-title" style="font-size: 1.5rem;">Détails de la Suite</h2>
+                <button class="close-drawer-btn" onclick="App.closeRoomDrawer()">&times;</button>
+            </div>
+            <div class="drawer-body">
+                <img id="drawer-img" src="" alt="Chambre" class="drawer-hero-img">
+                <div>
+                    <h3 id="drawer-type" style="font-size: 1.6rem; margin-bottom: 0.2rem;">Type de Suite</h3>
+                    <p class="gold-text" id="drawer-number" style="font-size: 1rem; font-weight: 500; letter-spacing: 1px;"></p>
+                </div>
+                <p id="drawer-desc" class="text-muted" style="font-size: 0.95rem; line-height: 1.6;"></p>
+                
+                <div class="drawer-specs">
+                    <div class="spec-item">
+                        <i class="fa-solid fa-maximize"></i>
+                        <div>
+                            <strong>Superficie</strong>
+                            <span id="drawer-size">-</span>
+                        </div>
+                    </div>
+                    <div class="spec-item">
+                        <i class="fa-solid fa-door-open"></i>
+                        <div>
+                            <strong>Pièces</strong>
+                            <span id="drawer-pieces">-</span>
+                        </div>
+                    </div>
+                    <div class="spec-item">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <div>
+                            <strong>Équipements tactiques & Extras</strong>
+                            <span id="drawer-extras">-</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="drawer-footer-price">
+                    <div>
+                        <span class="text-muted" style="font-size: 0.8rem; text-transform: uppercase;">Tarif</span>
+                        <div id="drawer-price" style="font-size: 1.6rem; font-weight: bold; color: var(--gold-accent); font-family: 'Playfair Display', serif;">$0/nuit</div>
+                    </div>
+                    <button class="btn" id="drawer-book-btn">Réserver la suite</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- TOAST NOTIFICATIONS -->
     <div id="toast-container"></div>
@@ -332,12 +529,12 @@
                     { id: 'C-001', target: 'Iosef Tarasov', bounty: 200, issuerId: 'U01', status: 'Ouvert', version: 1 }
                 ],
                 rooms: [
-                    { id: 'R-101', number: '101', type: 'Chambre Standard', price: 450, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Un confort luxueux et discret. Équipements de pointe et insonorisation absolue.', img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80' },
-                    { id: 'R-102', number: '102', type: 'Chambre Standard', price: 450, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Un confort luxueux et discret. Équipements de pointe et insonorisation absolue.', img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80' },
-                    { id: 'R-204', number: '204', type: 'Suite Prestige', price: 1200, status: 'Occupée', guest: 'M. Viggiano', email: 'viggiano@mail.com', checkIn: '2024-05-20', checkOut: '2024-05-30', identifiant: 'viggiano', desc: 'Espace généreux, mobilier d\'époque et vue panoramique.', img: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80' },
-                    { id: 'R-205', number: '205', type: 'Suite Prestige', price: 1200, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Espace généreux, mobilier d\'époque et vue panoramique.', img: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80' },
-                    { id: 'R-818', number: '818', type: 'Le Penthouse', price: 5000, status: 'Nettoyage', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Le summum du luxe. Accès privé, terrasse, coffre-fort tactique.', img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80' },
-                    { id: 'R-819', number: '819', type: 'Le Penthouse', price: 5000, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Le summum du luxe. Accès privé, terrasse, coffre-fort tactique.', img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80' }
+                    { id: 'R-101', number: '101', type: 'Chambre Standard', price: 450, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Un confort luxueux et discret. Équipements de pointe, coffre-fort biométrique et insonorisation absolue pour des nuits calmes.', img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80', size: '45 m²', pieces: 1, extras: 'Coffre-fort tactique chiffré, Insonorisation blindée, Téléphone direct réception' },
+                    { id: 'R-102', number: '102', type: 'Chambre Standard', price: 450, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Un confort luxueux et discret. Équipements de pointe, coffre-fort biométrique et insonorisation absolue pour des nuits calmes.', img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80', size: '45 m²', pieces: 1, extras: 'Coffre-fort tactique biométrique, Ligne cryptée satellite, Système d\'alarme indépendant' },
+                    { id: 'R-204', number: '204', type: 'Suite Prestige', price: 1200, status: 'Occupée', guest: 'M. Viggiano', email: 'viggiano@mail.com', checkIn: '2024-05-20', checkOut: '2024-05-30', identifiant: 'viggiano', desc: 'Espace généreux, mobilier d\'époque d\'une grande valeur historique et vue panoramique sur les toits de la ville.', img: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80', size: '120 m²', pieces: 3, extras: 'Armurerie secrète intégrée, Vitres pare-balles de classe IV, Bain thermal privé en marbre' },
+                    { id: 'R-205', number: '205', type: 'Suite Prestige', price: 1200, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Espace généreux, mobilier d\'époque d\'une grande valeur historique et vue panoramique sur les toits de la ville.', img: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80', size: '120 m²', pieces: 3, extras: 'Armurerie murale camouflée, SAS d\'entrée sécurisé, Dressing blindé à fermeture magnétique' },
+                    { id: 'R-818', number: '818', type: 'Le Penthouse', price: 5000, status: 'Nettoyage', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Le summum du luxe international. Accès privé ultra-sécurisé, terrasse privée à 360°, et coffre-fort de niveau militaire.', img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80', size: '350 m²', pieces: 6, extras: 'Héliport d\'évacuation privé direct, Serveur chiffré autonome, Double barrières thermiques et blindées' },
+                    { id: 'R-819', number: '819', type: 'Le Penthouse', price: 5000, status: 'Disponible', guest: null, email: null, checkIn: null, checkOut: null, identifiant: null, desc: 'Le summum du luxe international. Accès privé ultra-sécurisé, terrasse privée à 360°, et coffre-fort de niveau militaire.', img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80', size: '350 m²', pieces: 6, extras: 'Héliport d\'évacuation, Stock d\'armement tactique intégré, Système de survie en circuit autonome' }
                 ],
                 legalServices: [
                     { id: 'ls1', name: 'Service d\'étage (Ménage)', desc: 'Un nettoyage complet et classique de votre chambre.' },
@@ -423,6 +620,10 @@
                 this.currentUser = user;
                 this.cart = [];
                 
+                // Gestion de la visibilité des boutons globaux immédiats
+                document.getElementById('main-login-btn').classList.add('hidden');
+                document.getElementById('global-logout-btn').classList.remove('hidden');
+
                 if (this.currentUser.isVIP) {
                     this.renderFaceB();
                 } else if (this.currentUser.role === 'Client') {
@@ -440,7 +641,11 @@
                 document.getElementById('nav-vip').classList.add('hidden');
                 document.getElementById('nav-public').classList.remove('hidden');
                 document.getElementById('link-pub-client').classList.add('hidden');
-                document.getElementById('link-pub-logout').classList.add('hidden');
+                
+                // Restauration immédiate des boutons globaux
+                document.getElementById('main-login-btn').classList.remove('hidden');
+                document.getElementById('global-logout-btn').classList.add('hidden');
+
                 document.documentElement.setAttribute('data-theme', 'dark');
                 document.body.classList.remove('excommunicado-active');
                 this.renderFaceA('home');
@@ -457,6 +662,36 @@
                     toast.classList.add('fade-out');
                     setTimeout(() => toast.remove(), 500);
                 }, 4000);
+            },
+
+            // --- 5b. AFFICHAGE DES INFOS DANS LE VOLET COULISSANT (DRAWER) ---
+            showRoomDetails(roomId) {
+                const room = this.db.rooms.find(r => r.id === roomId);
+                if (room) {
+                    document.getElementById('drawer-title').innerText = `Détails - Chambre ${room.number}`;
+                    document.getElementById('drawer-img').src = room.img;
+                    document.getElementById('drawer-type').innerText = room.type;
+                    document.getElementById('drawer-number').innerText = `Numéro de suite : ${room.number}`;
+                    document.getElementById('drawer-desc').innerText = room.desc;
+                    document.getElementById('drawer-size').innerText = room.size || '45 m²';
+                    document.getElementById('drawer-pieces').innerText = room.pieces || 1;
+                    document.getElementById('drawer-extras').innerText = room.extras || 'Aucun équipement de combat supplémentaire.';
+                    document.getElementById('drawer-price').innerText = `$${room.price}/nuit`;
+
+                    const bookBtn = document.getElementById('drawer-book-btn');
+                    bookBtn.onclick = () => {
+                        this.closeRoomDrawer();
+                        this.openBookingModal(room.id);
+                    };
+
+                    const drawer = document.getElementById('room-details-drawer');
+                    drawer.classList.add('active');
+                }
+            },
+
+            closeRoomDrawer(event) {
+                if (event && event.target !== document.getElementById('room-details-drawer')) return;
+                document.getElementById('room-details-drawer').classList.remove('active');
             },
 
             // --- 6. MOTEUR DE RENDU : FACE A (PUBLIC & CLIENT) ---
@@ -477,10 +712,8 @@
                 // Affichage du bouton "Mon Séjour" uniquement si connecté en tant que client
                 if (this.currentUser && this.currentUser.role === 'Client') {
                     document.getElementById('link-pub-client').classList.remove('hidden');
-                    document.getElementById('link-pub-logout').classList.remove('hidden');
                 } else {
                     document.getElementById('link-pub-client').classList.add('hidden');
-                    document.getElementById('link-pub-logout').classList.add('hidden');
                 }
 
                 const main = document.getElementById('main-content');
@@ -529,10 +762,13 @@
                                 <img src="${r.img}" class="menu-img" alt="${r.type}">
                                 <div class="menu-content">
                                     <h3>${r.type} <span style="font-size:0.9rem; color:var(--text-muted)">N°${r.number}</span></h3>
-                                    <p>${r.desc}</p>
+                                    <p>${r.desc.substring(0, 100)}...</p>
                                     <div class="menu-footer">
                                         <span class="menu-price">$${r.price}/nuit</span>
-                                        <button class="btn btn-small" onclick="App.openBookingModal('${r.id}')">Réserver</button>
+                                        <div style="display: flex; gap: 0.3rem;">
+                                            <button class="btn btn-small" style="text-transform:none; letter-spacing:0;" onclick="App.showRoomDetails('${r.id}')">Plus d'infos</button>
+                                            <button class="btn btn-small" onclick="App.openBookingModal('${r.id}')">Réserver</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -832,7 +1068,6 @@
             },
 
             addToCart(itemId) {
-                // Recherche dans les armes OU les boissons VIP
                 const item = this.db.inventory.weapons.find(i => i.id === itemId) || this.db.inventory.drinks.find(i => i.id === itemId);
                 if (item) { this.cart.push(item); this.showVIPSection('armory'); }
             },
@@ -862,7 +1097,7 @@
                     
                     <div class="card" style="border-left-color: var(--danger-color);">
                         <h3 style="margin-bottom: 1rem; color: white;">Règle N°1 : Aucune "Affaire" sur le terrain.</h3>
-                        <p class="text-muted" style="margin-bottom: 2rem;">Le Continental est un sanctuaire. Toute violence ou exécution de contrat sur le sol de l'hôtel est strictement interdite. Aucune exception, quelles que soient les circonstances.</p>
+                        <p class="text-muted" style="margin-bottom: 2rem;">Le Continental est un sanctuaire. Toute violence ou exécution de contrat sur le sol de l'hôtel est strictly interdite. Aucune exception, quelles que soient les circonstances.</p>
                         
                         <h3 style="margin-bottom: 1rem; color: white;">Règle N°2 : Les marqueurs doivent être honorés.</h3>
                         <p class="text-muted" style="margin-bottom: 2rem;">Un serment par le sang est inviolable. Refuser un marqueur ou fuir ses obligations entraîne des conséquences fatales actées par la Grande Table.</p>
@@ -875,7 +1110,7 @@
                 `;
             },
 
-            // --- 11. GESTION DES CHAMBRES (NOUVEAU) ---
+            // --- 11. GESTION DES CHAMBRES ---
             openBookingModal(roomId) {
                 document.getElementById('book-room-id').value = roomId;
                 document.getElementById('book-room-guest').value = '';
@@ -913,7 +1148,6 @@
                     room.checkOut = checkOut;
                     room.identifiant = identifiant;
 
-                    // Création de l'utilisateur Client pour qu'il puisse se connecter
                     this.db.users[identifiant] = { 
                         id: 'C-' + Math.floor(Math.random() * 10000), 
                         name: guestName, 
@@ -1005,8 +1239,16 @@
                 }
 
                 let img = 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80';
-                if(type.toLowerCase().includes('suite')) img = 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80';
-                if(type.toLowerCase().includes('penthouse')) img = 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80';
+                let size = '45 m²', pieces = 1, extras = 'Coffre tactique basique, Double vitrage standard';
+                
+                if(type.toLowerCase().includes('suite')) {
+                    img = 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80';
+                    size = '120 m²'; pieces = 3; extras = 'Armurerie murale camouflée, Double vitrage pare-balles, Entrée sécurisée';
+                }
+                if(type.toLowerCase().includes('penthouse')) {
+                    img = 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80';
+                    size = '350 m²'; pieces = 6; extras = 'Héliport d\'évacuation direct, Serveur réseau autonome chiffré, SAS blindé';
+                }
 
                 this.db.rooms.push({
                     id: 'R-' + Math.floor(Math.random() * 10000),
@@ -1019,8 +1261,11 @@
                     checkIn: null,
                     checkOut: null,
                     identifiant: null,
-                    desc: 'Chambre confortable et sécurisée, fidèle aux standards du Continental.',
-                    img: img
+                    desc: 'Chambre confortable et sécurisée, fidèle aux standards de discrétion du Continental.',
+                    img: img,
+                    size: size,
+                    pieces: pieces,
+                    extras: extras
                 });
                 
                 this.showToast("Nouvelle chambre ajoutée au système.");
@@ -1032,7 +1277,6 @@
                 if (room) {
                     room.status = newStatus;
                     if (newStatus === 'Disponible' || newStatus === 'Nettoyage') {
-                        // Purge des données client
                         if (room.identifiant && this.db.users[room.identifiant]) {
                             delete this.db.users[room.identifiant];
                         }
@@ -1070,7 +1314,6 @@
                     room.checkIn = document.getElementById('edit-room-checkin').value;
                     room.checkOut = document.getElementById('edit-room-checkout').value;
                     
-                    // Répercuter la modification sur l'utilisateur s'il existe
                     if (room.identifiant && this.db.users[room.identifiant]) {
                         this.db.users[room.identifiant].name = newGuest;
                     }
@@ -1181,13 +1424,11 @@
 
             // --- 12. SÉCURITÉ : EXCOMMUNICADO ---
             triggerExcommunicado() {
-                // Remplacement de 'confirm()' qui peut causer des erreurs dans cet environnement.
                 this.showToast("Violation critique des règles. Initialisation du protocole d'Excommunication...");
                 
                 const userKey = Object.keys(this.db.users).find(key => this.db.users[key].id === this.currentUser.id);
                 this.db.users[userKey].status = 'Excommunicado';
                 
-                // Léger délai pour l'immersion
                 setTimeout(() => {
                     this.applyExcommunicadoProtocol();
                 }, 1000);
